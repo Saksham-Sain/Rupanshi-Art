@@ -2,16 +2,24 @@
   <% for (let artwork of allArtworks) { %>
     <div class="col">
       <div class="card h-100 shadow-sm" style="border-radius: 15px;">
-        <img src="<%= artwork.image.url %>" 
-             class="card-img-top" 
-             alt="artwork_image" 
-             style="border-top-left-radius: 15px; border-top-right-radius: 15px;" />
+
+        <!-- Clickable image -->
+        <a href="/artworks/<%= artwork._id %>">
+          <img src="<%= artwork.image.url %>" 
+               class="card-img-top" 
+               alt="artwork_image" 
+               style="border-top-left-radius: 15px; border-top-right-radius: 15px;" />
+        </a>
         
         <div class="card-body">
-          <h5 class="card-title"><%= artwork.title %></h5>
+          <h5 class="card-title">
+            <a href="/artworks/<%= artwork._id %>" class="text-decoration-none text-dark">
+              <%= artwork.title %>
+            </a>
+          </h5>
           <p class="card-text mb-1">Size: <%= artwork.size %></p>
 
-          <!-- Description with toggle -->
+          <!-- Description with read more -->
           <p class="card-text description mb-0" data-full="<%= artwork.description %>">
             <span class="short-text">
               <%= artwork.description.length > 100 
@@ -19,12 +27,15 @@
                    : artwork.description %>
             </span>
             <% if (artwork.description.length > 100) { %>
-              <a href="#" class="read-more text-decoration-none">Read more</a>
+              <button type="button"
+                      class="read-more btn btn-link p-0 m-0 align-baseline"
+                      style="text-decoration: underline;">
+                Read more
+              </button>
             <% } %>
           </p>
         </div>
 
-        <!-- Delete button: visible if logged in -->
         <% if (currUser) { %>
         <div class="card-footer bg-transparent border-0 text-end">
           <form 
@@ -42,3 +53,26 @@
     </div>
   <% } %>
 </div>
+
+<!-- Script for Read More toggle -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.read-more').forEach(button => {
+      button.addEventListener('click', function () {
+        const descElement = this.closest('.description');
+        const shortText = descElement?.querySelector('.short-text');
+        const fullText = descElement?.dataset.full;
+
+        if (!shortText || !fullText) return;
+
+        if (this.textContent.trim() === 'Read more') {
+          shortText.textContent = fullText;
+          this.textContent = 'Read less';
+        } else {
+          shortText.textContent = fullText.substring(0, 100) + '...';
+          this.textContent = 'Read more';
+        }
+      });
+    });
+  });
+</script>
