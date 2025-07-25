@@ -59,7 +59,7 @@ router.post(
 router.delete("/artworks/:id", isLoggedIn,wrapAsync(async (req, res) => {
   const { id } = req.params;
   await Artwork.findByIdAndDelete(id);
-   req.flash("succes", "Artworkd eleted.");
+   req.flash("succes", "Artworkd deleted.");
   res.redirect("/");
 }));
 

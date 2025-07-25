@@ -1,3 +1,4 @@
+
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
@@ -34,7 +35,7 @@ store.on("error", (err) => {
 });
 const sessionOptions = {
   store,
-  secret: "mysupersecretstring",
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
 };

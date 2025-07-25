@@ -1,71 +1,44 @@
-<!-- Artwork Section -->
-<section id="work" class="container py-5">
-  <h1 class="text-center mb-4">All Artworks</h1>
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+  <% for (let artwork of allArtworks) { %>
+    <div class="col">
+      <div class="card h-100 shadow-sm" style="border-radius: 15px;">
+        <img src="<%= artwork.image.url %>" 
+             class="card-img-top" 
+             alt="artwork_image" 
+             style="border-top-left-radius: 15px; border-top-right-radius: 15px;" />
+        
+        <div class="card-body">
+          <h5 class="card-title"><%= artwork.title %></h5>
+          <p class="card-text mb-1">Size: <%= artwork.size %></p>
 
-  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4">
-    <% for (let artwork of allArtworks) { %>
-      <div class="col">
-        <div class="card h-100 shadow-sm" style="border-radius: 15px;">
-          <img src="<%= artwork.image.url %>" 
-               class="card-img-top" 
-               alt="artwork_image" 
-               style="border-top-left-radius: 15px; border-top-right-radius: 15px;" />
-          
-          <div class="card-body">
-            <h5 class="card-title"><%= artwork.title %></h5>
-            <p class="card-text mb-1">Size: <%= artwork.size %></p>
-
-            <!-- Description with toggle -->
-            <p class="card-text description mb-0" data-full="<%= artwork.description %>">
-              <span class="short-text">
-                <%= artwork.description.length > 100 
-                     ? artwork.description.substring(0, 100) + "..." 
-                     : artwork.description %>
-              </span>
-              <% if (artwork.description.length > 100) { %>
-                <a href="#" class="read-more text-decoration-none">Read more</a>
-              <% } %>
-            </p>
-          </div>
-
-          <!-- Delete button: visible if logged in -->
-          <% if (currUser) { %>
-          <div class="card-footer bg-transparent border-0 text-end">
-            <form 
-              action="/artworks/<%= artwork._id %>?_method=DELETE" 
-              method="POST"
-              style="display: inline-block;"
-            >
-              <button class="btn btn-dark btn-sm" onclick="return confirm('Are you sure you want to delete this artwork?')">
-                Delete
-              </button>
-            </form>
-          </div>
-          <% } %>
+          <!-- Description with toggle -->
+          <p class="card-text description mb-0" data-full="<%= artwork.description %>">
+            <span class="short-text">
+              <%= artwork.description.length > 100 
+                   ? artwork.description.substring(0, 100) + "..." 
+                   : artwork.description %>
+            </span>
+            <% if (artwork.description.length > 100) { %>
+              <a href="#" class="read-more text-decoration-none">Read more</a>
+            <% } %>
+          </p>
         </div>
+
+        <!-- Delete button: visible if logged in -->
+        <% if (currUser) { %>
+        <div class="card-footer bg-transparent border-0 text-end">
+          <form 
+            action="/artworks/<%= artwork._id %>?_method=DELETE" 
+            method="POST"
+            style="display: inline-block;"
+          >
+            <button class="btn btn-dark btn-sm" onclick="return confirm('Are you sure you want to delete this artwork?')">
+              Delete
+            </button>
+          </form>
+        </div>
+        <% } %>
       </div>
-    <% } %>
-  </div>
-</section>
-
-<!-- JS for Read More -->
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".read-more").forEach(link => {
-      link.addEventListener("click", function (e) {
-        e.preventDefault();
-        const parent = this.closest(".description");
-        const fullText = parent.getAttribute("data-full");
-        const shortTextElem = parent.querySelector(".short-text");
-
-        if (this.textContent === "Read more") {
-          shortTextElem.textContent = fullText; // Expand
-          this.textContent = "Read less";
-        } else {
-          shortTextElem.textContent = fullText.substring(0, 100) + "..."; // Collapse
-          this.textContent = "Read more";
-        }
-      });
-    });
-  });
-</script>
+    </div>
+  <% } %>
+</div>
