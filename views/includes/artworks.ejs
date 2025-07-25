@@ -1,58 +1,65 @@
-<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-  <% for (let artwork of allArtworks) { %>
-    <div class="col">
-      <div class="card h-100 shadow-sm" style="border-radius: 12px; font-size: 0.9rem;">
-        
-        <!-- Full image (not cropped, scaled down) -->
-        <a href="/artworks/<%= artwork._id %>">
-          <img src="<%= artwork.image.url %>" 
-               class="card-img-top"
-               alt="artwork_image"
-               style="border-top-left-radius: 12px; border-top-right-radius: 12px; width: 100%; height: auto; max-height: 200px; object-fit: contain;" />
-        </a>
-        
-        <div class="card-body py-2 px-3">
-          <h6 class="card-title mb-2 fw-semibold">
-            <a href="/artworks/<%= artwork._id %>" class="text-decoration-none text-dark">
-              <%= artwork.title %>
-            </a>
-          </h6>
-          <p class="card-text mb-1 text-muted small">Size: <%= artwork.size %></p>
+<!-- MY WORK Section -->
+<div id="work" class="container py-5">
+  <h2 class="text-center mb-4 fw-bold" style="color: #4A4A4A;">MY WORK</h2>
 
-          <!-- Description with read more -->
-          <p class="card-text description small mb-0" data-full="<%= artwork.description %>">
-            <span class="short-text">
-              <%= artwork.description.length > 100 
-                   ? artwork.description.substring(0, 100) + "..." 
-                   : artwork.description %>
-            </span>
-            <% if (artwork.description.length > 100) { %>
-              <button type="button"
-                      class="read-more btn btn-link p-0 m-0 small"
-                      style="text-decoration: underline;">
-                Read more
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+    <% for (let artwork of allArtworks) { %>
+      <div class="col">
+        <div class="card h-100 shadow-sm" style="border-radius: 12px; font-size: 0.9rem;">
+          
+          <!-- Full image (not cropped, scaled down) -->
+          <a href="/artworks/<%= artwork._id %>">
+            <img src="<%= artwork.image.url %>" 
+                 class="card-img-top"
+                 alt="artwork_image"
+                 style="border-top-left-radius: 12px; border-top-right-radius: 12px; width: 100%; height: auto; max-height: 200px; object-fit: contain;" />
+          </a>
+          
+          <div class="card-body py-2 px-3">
+            <h6 class="card-title mb-2 fw-semibold">
+              <a href="/artworks/<%= artwork._id %>" class="text-decoration-none text-dark">
+                <%= artwork.title %>
+              </a>
+            </h6>
+            <p class="card-text mb-1 text-muted small">Size: <%= artwork.size %></p>
+
+            <!-- Description with read more -->
+            <p class="card-text description small mb-0" data-full="<%= artwork.description %>">
+              <span class="short-text">
+                <%= artwork.description.length > 100 
+                     ? artwork.description.substring(0, 100) + "..." 
+                     : artwork.description %>
+              </span>
+              <% if (artwork.description.length > 100) { %>
+                <button type="button"
+                        class="read-more btn btn-link p-0 m-0 small"
+                        style="text-decoration: underline;">
+                  Read more
+                </button>
+              <% } %>
+            </p>
+          </div>
+
+          <% if (currUser) { %>
+          <div class="card-footer bg-transparent border-0 text-end py-2 px-3">
+            <form 
+              action="/artworks/<%= artwork._id %>?_method=DELETE" 
+              method="POST"
+              style="display: inline-block;"
+            >
+              <button class="btn btn-dark btn-sm" onclick="return confirm('Are you sure you want to delete this artwork?')">
+                Delete
               </button>
-            <% } %>
-          </p>
+            </form>
+          </div>
+          <% } %>
         </div>
-
-        <% if (currUser) { %>
-        <div class="card-footer bg-transparent border-0 text-end py-2 px-3">
-          <form 
-            action="/artworks/<%= artwork._id %>?_method=DELETE" 
-            method="POST"
-            style="display: inline-block;"
-          >
-            <button class="btn btn-dark btn-sm" onclick="return confirm('Are you sure you want to delete this artwork?')">
-              Delete
-            </button>
-          </form>
-        </div>
-        <% } %>
       </div>
-    </div>
-  <% } %>
+    <% } %>
+  </div>
 </div>
+
+
 
 <!-- Script for Read More toggle -->
 <script>
