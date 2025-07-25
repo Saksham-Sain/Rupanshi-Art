@@ -1,0 +1,100 @@
+<footer class="text-light mt-5 py-4" style="background-color: #2D2D2D;">
+  <div class="container">
+    <div class="row gy-4">
+      
+      <!-- Navigation Links -->
+      <div class="col-12 col-md-4">
+        <h5 class="mb-3 text-center text-md-start fw-semibold">Quick Links</h5>
+        <ul class="list-unstyled d-flex flex-column align-items-center align-items-md-start gap-2">
+          <li>
+            <a 
+              href="#about" 
+              class="text-light text-decoration-none hover-opacity"
+              onclick="scrollToSection('about', event)"
+            >
+              About
+            </a>
+          </li>
+          <li>
+            <a 
+              href="#work" 
+              class="text-light text-decoration-none hover-opacity"
+              onclick="scrollToSection('work', event)"
+            >
+              Work
+            </a>
+          </li>
+          <li>
+            <a 
+              href="#contact" 
+              class="text-light text-decoration-none hover-opacity"
+              onclick="scrollToSection('contact', event)"
+            >
+              Contact
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Artist Social Media -->
+      <div class="col-12 col-md-4 text-center">
+        <h5 class="mb-3 fw-semibold">Follow Artist</h5>
+        <div class="d-flex justify-content-center gap-3">
+          <a href="https://www.instagram.com/rupanshiart/" class="text-light text-decoration-none hover-opacity" target="_blank" rel="noopener noreferrer">
+            <i class="bi bi-instagram fs-4"></i>
+          </a>
+          <a href="mailto:rupanshiart1@gmail.com" class="text-light text-decoration-none hover-opacity">
+            <i class="bi bi-envelope fs-4"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Developer Info -->
+      <div class="col-12 col-md-4 text-center text-md-end">
+        <h5 class="mb-3 fw-semibold">Developer</h5>
+        <p class="mb-2">Made by Saksham</p>
+        <p class="mb-3">
+          <a href="mailto:canadasaksham@gmail.com" class="text-light text-decoration-none hover-opacity">
+            canadasaksham@gmail.com
+          </a>
+        </p>
+        <div class="developer-social d-flex justify-content-center justify-content-md-end gap-3">
+          <a href="https://www.instagram.com/sa.ksham628/" class="text-light text-decoration-none hover-opacity" target="_blank" rel="noopener noreferrer">
+            <i class="bi bi-instagram"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/saksham-sain/" class="text-light text-decoration-none hover-opacity" target="_blank" rel="noopener noreferrer">
+            <i class="bi bi-linkedin"></i>
+          </a>
+          <a href="https://x.com/Saksham_can" class="text-light text-decoration-none hover-opacity" target="_blank" rel="noopener noreferrer">
+            <i class="bi bi-twitter-x"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-12">
+        <hr class="bg-light opacity-25" />
+        <p class="text-center mb-0 text-light opacity-75">© 2024 Rupanshi Art. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Smooth Scroll Script -->
+<script>
+  function scrollToSection(sectionId, e) {
+    e.preventDefault();
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const navbar = document.querySelector('.navbar');
+      const navbarHeight = navbar ? navbar.offsetHeight : 0;
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top: elementPosition - navbarHeight,
+        behavior: 'smooth'
+      });
+    }
+  }
+</script>
